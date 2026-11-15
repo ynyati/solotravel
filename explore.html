@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,15 +9,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=DM+Sans:wght@400;500;700;900&display=swap');
 
 :root{
-  --grape:   #8C6BFF;
-  --sky:     #33C7E0;
-  --sun:     #FFC93C;
-  --coral:   #FF6357;
-  --mint:    #3ED6A6;
-  --cream:   #FFFBF2;
-  --ink:     #2C2440;
-  --ink-70:  rgba(44,36,64,0.7);
-  --ink-45:  rgba(44,36,64,0.45);
+  --grape:#8C6BFF;
+  --sky:#33C7E0;
+  --sun:#FFC93C;
+  --coral:#FF6357;
+  --mint:#3ED6A6;
+  --cream:#FFFBF2;
+  --ink:#2C2440;
+  --ink-70:rgba(44,36,64,0.7);
+  --ink-45:rgba(44,36,64,0.45);
 }
 
 *{box-sizing:border-box;}
@@ -38,10 +39,10 @@ body{
   position:relative;
   overflow-x:hidden;
   background:
-    radial-gradient(circle at 8% 12%, var(--sun) 0%, transparent 38%),
-    radial-gradient(circle at 92% 18%, var(--mint) 0%, transparent 40%),
-    radial-gradient(circle at 15% 92%, var(--coral) 0%, transparent 42%),
-    linear-gradient(135deg, var(--grape) 0%, var(--sky) 100%);
+    radial-gradient(circle at 8% 12%,var(--sun) 0%,transparent 38%),
+    radial-gradient(circle at 92% 18%,var(--mint) 0%,transparent 40%),
+    radial-gradient(circle at 15% 92%,var(--coral) 0%,transparent 42%),
+    linear-gradient(135deg,var(--grape) 0%,var(--sky) 100%);
   background-attachment:fixed;
 }
 
@@ -49,6 +50,33 @@ body{
   width:100%;
   max-width:440px;
   position:relative;
+}
+
+/* ---------- back button ---------- */
+.back-button{
+  display:inline-block;
+  margin-bottom:24px;
+  background:var(--cream);
+  color:var(--ink);
+  border:2.5px solid var(--ink);
+  border-radius:30px;
+  padding:10px 17px;
+  text-decoration:none;
+  font-family:'Fredoka',sans-serif;
+  font-size:14px;
+  font-weight:600;
+  box-shadow:3px 3px 0 var(--ink);
+  transition:transform 0.15s ease,box-shadow 0.15s ease;
+}
+
+.back-button:hover{
+  transform:translate(-2px,-2px);
+  box-shadow:5px 5px 0 var(--ink);
+}
+
+.back-button:active{
+  transform:translate(1px,1px);
+  box-shadow:1px 1px 0 var(--ink);
 }
 
 /* ---------- shared bits ---------- */
@@ -66,6 +94,7 @@ body{
   gap:10px;
   margin-bottom:22px;
 }
+
 .orbit-dot{
   width:34px;height:34px;
   border-radius:50%;
@@ -91,6 +120,7 @@ body{
   margin:0 0 28px;
   text-shadow:3px 3px 0 rgba(44,36,64,0.35);
 }
+
 .headline .pop{
   color:var(--sun);
   display:inline-block;
@@ -155,6 +185,7 @@ body{
   overflow-y:auto;
   display:none;
 }
+
 .suggest-item{
   display:flex;
   align-items:baseline;
@@ -166,18 +197,22 @@ body{
   font-weight:600;
   color:var(--ink);
 }
+
 .suggest-item .city-part{
   font-family:'Fredoka',sans-serif;
 }
+
 .suggest-item .country-part{
   font-size:12px;
   font-weight:500;
   color:var(--ink-45);
 }
+
 .suggest-item.active,
 .suggest-item:hover{
   background:#FFE1A8;
 }
+
 .suggest-empty{
   padding:10px 12px;
   font-size:12.5px;
@@ -196,6 +231,7 @@ body{
   color:var(--ink);
   padding:8px 0;
 }
+
 #cityInput::placeholder{
   color:var(--ink-45);
 }
@@ -212,22 +248,26 @@ body{
   align-items:center;
   justify-content:center;
   box-shadow:3px 3px 0 var(--ink);
-  transition:transform 0.12s ease, box-shadow 0.12s ease;
+  transition:transform 0.12s ease,box-shadow 0.12s ease;
 }
+
 .go-btn:hover{
   transform:translate(-2px,-2px);
   box-shadow:5px 5px 0 var(--ink);
 }
+
 .go-btn:active{
   transform:translate(1px,1px);
   box-shadow:1px 1px 0 var(--ink);
 }
+
 .go-btn:disabled{
   opacity:0.5;
   cursor:not-allowed;
   transform:none;
   box-shadow:3px 3px 0 var(--ink);
 }
+
 .go-btn svg{width:18px;height:18px;}
 
 .hint-row{
@@ -236,6 +276,7 @@ body{
   flex-wrap:wrap;
   gap:8px;
 }
+
 .hint-chip{
   font-size:12px;
   font-weight:700;
@@ -248,11 +289,13 @@ body{
   transition:all 0.15s ease;
   font-family:'DM Sans',sans-serif;
 }
+
 .hint-chip:nth-child(1){background:#FFE1A8;}
 .hint-chip:nth-child(2){background:#C9F5E4;}
 .hint-chip:nth-child(3){background:#D6E0FF;}
 .hint-chip:nth-child(4){background:#FFD3CC;}
 .hint-chip:nth-child(5){background:#F0D9FF;}
+
 .hint-chip:hover{
   transform:translateY(-2px);
 }
@@ -275,6 +318,7 @@ body{
   text-align:center;
   padding:60px 0;
 }
+
 .bounce-pin{
   width:64px;height:64px;
   margin:0 auto 18px;
@@ -285,6 +329,7 @@ body{
   font-size:28px;
   animation:bounce 0.7s ease-in-out infinite;
 }
+
 .loading-text{
   font-size:14px;
   font-weight:700;
@@ -292,7 +337,7 @@ body{
   text-shadow:2px 2px 0 rgba(44,36,64,0.35);
 }
 
-/* ---------- screen: result (postcard) ---------- */
+/* ---------- screen: result ---------- */
 #resultScreen{
   display:none;
   animation:popIn 0.5s cubic-bezier(.2,1.2,.4,1) both;
@@ -314,6 +359,7 @@ body{
   align-items:flex-start;
   margin-bottom:18px;
 }
+
 .dest-label{
   font-size:11px;
   letter-spacing:0.1em;
@@ -322,12 +368,14 @@ body{
   font-weight:700;
   margin-bottom:4px;
 }
+
 .dest-name{
   font-family:'Fredoka',sans-serif;
   font-weight:600;
   font-size:22px;
   color:var(--ink);
 }
+
 .count-badge{
   background:var(--sky);
   border:2px solid var(--ink);
@@ -351,6 +399,7 @@ body{
   align-items:center;
   justify-content:center;
 }
+
 .idea-text{
   font-family:'Fredoka',sans-serif;
   font-weight:500;
@@ -380,12 +429,13 @@ body{
   font-family:'DM Sans',sans-serif;
   box-shadow:3px 3px 0 rgba(44,36,64,0.3);
 }
+
 .sticker span{padding:0 4px;}
 
 @keyframes stickerIn{
-  0%{ transform:rotate(12deg) scale(0); }
-  70%{ transform:rotate(12deg) scale(1.15); }
-  100%{ transform:rotate(12deg) scale(1); }
+  0%{transform:rotate(12deg) scale(0);}
+  70%{transform:rotate(12deg) scale(1.15);}
+  100%{transform:rotate(12deg) scale(1);}
 }
 
 .actions{
@@ -393,6 +443,7 @@ body{
   gap:12px;
   margin-top:22px;
 }
+
 .action-btn{
   flex:1;
   font-family:'DM Sans',sans-serif;
@@ -401,26 +452,31 @@ body{
   padding:14px 10px;
   border-radius:14px;
   cursor:pointer;
-  transition:transform 0.12s ease, box-shadow 0.12s ease;
+  transition:transform 0.12s ease,box-shadow 0.12s ease;
   border:2.5px solid var(--ink);
   box-shadow:4px 4px 0 var(--ink);
 }
+
 .action-btn.ghost{
   background:#fff;
   color:var(--ink);
 }
+
 .action-btn.primary{
   background:var(--mint);
   color:var(--ink);
 }
+
 .action-btn:hover{
   transform:translate(-2px,-2px);
   box-shadow:6px 6px 0 var(--ink);
 }
+
 .action-btn:active{
   transform:translate(1px,1px);
   box-shadow:2px 2px 0 var(--ink);
 }
+
 .action-btn:disabled{
   opacity:0.5;
   cursor:not-allowed;
@@ -430,22 +486,27 @@ body{
 
 /* ---------- animations ---------- */
 @keyframes popIn{
-  from{opacity:0; transform:translateY(14px) scale(0.98);}
-  to{opacity:1; transform:translateY(0) scale(1);}
-}
-@keyframes bounce{
-  0%,100%{ transform:translateY(0) rotate(-4deg); }
-  50%{ transform:translateY(-10px) rotate(4deg); }
+  from{opacity:0;transform:translateY(14px) scale(0.98);}
+  to{opacity:1;transform:translateY(0) scale(1);}
 }
 
-@media (prefers-reduced-motion: reduce){
-  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important;}
+@keyframes bounce{
+  0%,100%{transform:translateY(0) rotate(-4deg);}
+  50%{transform:translateY(-10px) rotate(4deg);}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;}
 }
 </style>
 </head>
+
 <body>
 
 <div class="stage">
+
+  <!-- BACK TO HOME BUTTON -->
+  <a href="index.html" class="back-button">← Back to Home</a>
 
   <!-- ASK SCREEN -->
   <div id="askScreen">
@@ -589,6 +650,7 @@ function renderSuggestions(query){
     closeSuggestions();
     return;
   }
+
   currentMatches = CITIES
     .filter(([city,country]) => city.toLowerCase().includes(q) || country.toLowerCase().includes(q))
     .sort((a,b) => a[0].toLowerCase().indexOf(q) - b[0].toLowerCase().indexOf(q))
@@ -604,15 +666,15 @@ function renderSuggestions(query){
     return;
   }
 
-  currentMatches.forEach(([city,country], i)=>{
+  currentMatches.forEach(([city,country],i)=>{
     const item = document.createElement('div');
     item.className = 'suggest-item';
     item.setAttribute('role','option');
     item.dataset.index = i;
     item.innerHTML = `<span class="city-part">${city}</span><span class="country-part">${country}</span>`;
-    item.addEventListener('mousedown', (e)=>{
+    item.addEventListener('mousedown',(e)=>{
       e.preventDefault();
-      selectCity(city, country);
+      selectCity(city,country);
     });
     suggestList.appendChild(item);
   });
@@ -631,25 +693,26 @@ function closeSuggestions(){
 
 function highlightActive(){
   [...suggestList.children].forEach((el,i)=>{
-    el.classList.toggle('active', i === activeIndex);
+    el.classList.toggle('active',i === activeIndex);
   });
   if(activeIndex >= 0 && suggestList.children[activeIndex]){
-    suggestList.children[activeIndex].scrollIntoView({ block:'nearest' });
+    suggestList.children[activeIndex].scrollIntoView({block:'nearest'});
   }
 }
 
-function selectCity(city, country){
+function selectCity(city,country){
   cityInput.value = `${city}, ${country}`;
   closeSuggestions();
   requestIdea();
 }
 
-cityInput.addEventListener('input', ()=> renderSuggestions(cityInput.value));
-cityInput.addEventListener('focus', ()=>{
+cityInput.addEventListener('input',()=>renderSuggestions(cityInput.value));
+
+cityInput.addEventListener('focus',()=>{
   if(cityInput.value.trim()) renderSuggestions(cityInput.value);
 });
 
-document.addEventListener('click', (e)=>{
+document.addEventListener('click',(e)=>{
   if(!e.target.closest('.field-outer')) closeSuggestions();
 });
 
@@ -662,16 +725,16 @@ const loadingPhrases = [
 ];
 
 document.querySelectorAll('.hint-chip').forEach(chip=>{
-  chip.addEventListener('click', ()=>{
+  chip.addEventListener('click',()=>{
     cityInput.value = chip.dataset.city;
     closeSuggestions();
     cityInput.focus();
   });
 });
 
-goBtn.addEventListener('click', closeSuggestions);
+goBtn.addEventListener('click',closeSuggestions);
 
-cityInput.addEventListener('keydown', (e)=>{
+cityInput.addEventListener('keydown',(e)=>{
   const isOpen = suggestList.style.display === 'block' && currentMatches.length > 0;
 
   if(e.key === 'ArrowDown'){
@@ -682,6 +745,7 @@ cityInput.addEventListener('keydown', (e)=>{
     }
     return;
   }
+
   if(e.key === 'ArrowUp'){
     if(isOpen){
       e.preventDefault();
@@ -690,24 +754,28 @@ cityInput.addEventListener('keydown', (e)=>{
     }
     return;
   }
+
   if(e.key === 'Enter'){
     if(isOpen && activeIndex >= 0){
       e.preventDefault();
       const [city,country] = currentMatches[activeIndex];
-      selectCity(city, country);
+      selectCity(city,country);
     }else{
       closeSuggestions();
       requestIdea();
     }
     return;
   }
+
   if(e.key === 'Escape'){
     closeSuggestions();
   }
 });
-goBtn.addEventListener('click', requestIdea);
-anotherBtn.addEventListener('click', requestIdea);
-newCityBtn.addEventListener('click', ()=>{
+
+goBtn.addEventListener('click',requestIdea);
+anotherBtn.addEventListener('click',requestIdea);
+
+newCityBtn.addEventListener('click',()=>{
   usedIdeas = [];
   count = 0;
   resultScreen.style.display = 'none';
@@ -717,16 +785,18 @@ newCityBtn.addEventListener('click', ()=>{
 });
 
 function show(el){
-  [askScreen, loadingScreen, resultScreen].forEach(s => s.style.display = 'none');
-  el.style.display = 'block';
+  [askScreen,loadingScreen,resultScreen].forEach(s=>s.style.display='none');
+  el.style.display='block';
 }
 
 async function requestIdea(){
   const city = cityInput.value.trim() || currentCity;
+
   if(!city){
     cityInput.focus();
     return;
   }
+
   currentCity = city;
   errorMsg.style.display = 'none';
   goBtn.disabled = true;
@@ -736,7 +806,7 @@ async function requestIdea(){
   show(loadingScreen);
 
   try{
-    const idea = await fetchIdea(city, usedIdeas);
+    const idea = await fetchIdea(city,usedIdeas);
     usedIdeas.push(idea);
     count += 1;
 
@@ -759,16 +829,15 @@ async function requestIdea(){
   }
 }
 
-
-async function fetchIdea(city, avoid){
-  const response = await fetch("/api/idea", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
+async function fetchIdea(city,avoid){
+  const response = await fetch("/api/idea",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json"
     },
-    body: JSON.stringify({
-      city: city,
-      avoid: avoid
+    body:JSON.stringify({
+      city:city,
+      avoid:avoid
     })
   });
 
@@ -780,7 +849,6 @@ async function fetchIdea(city, avoid){
 
   return data.idea;
 }
-
 </script>
 
 </body>
