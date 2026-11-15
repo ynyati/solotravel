@@ -1,0 +1,290 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Journal | One Idea</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #fbf8f2;
+      color: #292821;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 8%;
+      border-bottom: 1px solid #e8e2d8;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 27px;
+      font-weight: 700;
+      color: #292821;
+      text-decoration: none;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #292821;
+      margin-left: 25px;
+      font-size: 14px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 90px 20px 65px;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 11px;
+      color: #a16f54;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+    }
+
+    h1 {
+      font-size: 60px;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      color: #77736b;
+      line-height: 1.8;
+      max-width: 550px;
+      margin: auto;
+    }
+
+    .content {
+      max-width: 1100px;
+      padding: 30px 25px 90px;
+      margin: auto;
+    }
+
+    .section-title {
+      font-size: 32px;
+      margin-bottom: 25px;
+    }
+
+    .posts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .post {
+      background: white;
+      border: 1px solid #eee7dc;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .post-image {
+      height: 210px;
+      background: #e9ded0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #80563f;
+      font-family: 'Playfair Display', serif;
+      font-size: 25px;
+    }
+
+    .post:nth-child(2) .post-image {
+      background: #e6e4d9;
+    }
+
+    .post:nth-child(3) .post-image {
+      background: #eadedb;
+    }
+
+    .post-content {
+      padding: 25px;
+    }
+
+    .category {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: #a16f54;
+      font-weight: 700;
+      margin-bottom: 13px;
+    }
+
+    .post h3 {
+      font-size: 23px;
+      margin-bottom: 12px;
+    }
+
+    .post p {
+      font-size: 13px;
+      color: #77736b;
+      line-height: 1.8;
+    }
+
+    .about {
+      background: #eee7dc;
+      text-align: center;
+      padding: 65px 25px;
+    }
+
+    .about p {
+      max-width: 550px;
+      margin: 15px auto;
+      line-height: 1.8;
+      color: #77736b;
+    }
+
+    footer {
+      padding: 30px;
+      text-align: center;
+      color: #77736b;
+      font-size: 12px;
+    }
+
+    @media (max-width: 750px) {
+      nav {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      nav a {
+        margin: 0 8px;
+      }
+
+      h1 {
+        font-size: 43px;
+      }
+
+      .posts {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a class="logo" href="index.html">one idea.</a>
+    <div>
+      <a href="explore.html">Explore</a>
+      <a href="itinerary.html">Plan a Trip</a>
+      <a href="journal.html">Journal</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="eyebrow">Stories, places & little discoveries</div>
+    <h1>The Journal.</h1>
+    <p>
+      A collection of travel stories, city discoveries,
+      recommendations, and notes on learning to enjoy
+      the world on your own.
+    </p>
+  </section>
+
+  <main class="content">
+    <h2 class="section-title">Explore the journal</h2>
+
+   <div class="posts" id="posts"></div>
+  </main>
+
+  <section class="about">
+    <div class="eyebrow">A note from the creator</div>
+    <h2>For the curious ones.</h2>
+    <p>
+      One Idea is a space for discovering new places,
+      trying something different, and finding adventure
+      in both the big trips and the everyday moments.
+    </p>
+  </section>
+
+  <footer>© 2026 One Idea. Made for the curious.</footer>
+
+
+<script>
+const articles = [
+  {
+    title: "Learning to Travel on Your Own",
+    category: "SOLO STORIES",
+    description: "Stories and lessons about discovering new places and enjoying your own company.",
+    date: "November 14, 2026",
+    image: "",
+    link: "/articles/learning-to-travel-alone.html"
+  }
+];
+
+const postsContainer = document.getElementById("posts");
+
+articles.forEach(article => {
+  const card = document.createElement("article");
+  card.className = "post";
+
+  const image = document.createElement("div");
+  image.className = "post-image";
+
+  if (article.image) {
+    image.style.backgroundImage = `url("${article.image}")`;
+    image.style.backgroundSize = "cover";
+    image.style.backgroundPosition = "center";
+  } else {
+    image.textContent = "One Idea";
+  }
+
+  const content = document.createElement("div");
+  content.className = "post-content";
+
+  const category = document.createElement("div");
+  category.className = "category";
+  category.textContent = article.category;
+
+  const title = document.createElement("h3");
+  title.textContent = article.title;
+
+  const description = document.createElement("p");
+  description.textContent = article.description;
+
+  const date = document.createElement("p");
+  date.textContent = article.date;
+  date.style.marginTop = "12px";
+
+  const link = document.createElement("a");
+  link.href = article.link;
+  link.textContent = "Read the story →";
+  link.style.display = "inline-block";
+  link.style.marginTop = "18px";
+  link.style.color = "#a16f54";
+  link.style.textDecoration = "none";
+  link.style.fontSize = "13px";
+
+  content.append(category, title, description, date, link);
+  card.append(image, content);
+  postsContainer.appendChild(card);
+});
+</script>
+</body>
+</html>
+
+</body>
+</html>

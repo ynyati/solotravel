@@ -1,0 +1,330 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan a Trip | One Idea</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #fbf8f2;
+      color: #292821;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 8%;
+      border-bottom: 1px solid #e8e2d8;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 27px;
+      font-weight: 700;
+      color: #292821;
+      text-decoration: none;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #292821;
+      margin-left: 25px;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 70px auto;
+      padding: 0 25px;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 11px;
+      color: #a16f54;
+      font-weight: 700;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 52px;
+      font-weight: 500;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .intro {
+      text-align: center;
+      color: #77736b;
+      line-height: 1.8;
+      max-width: 540px;
+      margin: 0 auto 40px;
+    }
+
+    .form-card {
+      background: white;
+      padding: 38px;
+      border: 1px solid #eee7dc;
+      border-radius: 8px;
+    }
+
+    .field {
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 13px;
+      margin-bottom: 9px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ded8ce;
+      border-radius: 4px;
+      background: #fffefa;
+      font-family: inherit;
+      font-size: 14px;
+      color: #292821;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: 1px solid #a16f54;
+      border-color: #a16f54;
+    }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      background: #a16f54;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #80563f;
+    }
+
+    .note {
+      font-size: 12px;
+      color: #888177;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    footer {
+      padding: 30px;
+      text-align: center;
+      color: #77736b;
+      font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      nav a {
+        margin: 0 8px;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+
+      .form-card {
+        padding: 24px;
+      }
+
+      .two-columns {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+  <a class="logo" href="index.html">one idea.</a>
+  <div>
+    <a href="explore.html">Explore</a>
+    <a href="itinerary.html">Plan a Trip</a>
+    <a href="/journal.html">Journal</a>
+  </div>
+</nav>
+
+  <main class="container">
+
+    <div class="eyebrow">Your next adventure starts here</div>
+
+    <h1>Let's plan a trip.</h1>
+
+    <p class="intro">
+      Tell us a little about where you're going and what you love.
+      We'll help you turn your ideas into an itinerary.
+    </p>
+
+    <div class="form-card">
+
+      <form id="tripForm">
+
+        <div class="field">
+          <label for="destination">Where do you want to go?</label>
+          <input id="destination" name="destination"
+            type="text" placeholder="e.g. Copenhagen, Japan, Italy" required>
+        </div>
+
+        <div class="two-columns">
+          <div class="field">
+            <label for="days">How many days?</label>
+            <select id="days" name="days" required>
+              <option value="">Choose duration</option>
+              <option>1–2 days</option>
+              <option>3–5 days</option>
+              <option>6–8 days</option>
+              <option>9–14 days</option>
+              <option>2+ weeks</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="budget">Your daily budget</label>
+            <select id="budget" name="budget" required>
+              <option value="">Choose budget</option>
+              <option>Under $50</option>
+              <option>$50–$100</option>
+              <option>$100–$200</option>
+              <option>$200–$300</option>
+              <option>$300+</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="travelStyle">What's your travel style?</label>
+          <select id="travelStyle" name="travelStyle">
+            <option value="">Choose your style</option>
+            <option>Relaxed and slow</option>
+            <option>Adventure and outdoors</option>
+            <option>Food, cafes and culture</option>
+            <option>Nightlife and social experiences</option>
+            <option>A little bit of everything</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="interests">What are you interested in?</label>
+          <textarea id="interests" name="interests"
+            rows="4" placeholder="Museums, coffee shops, beaches, hiking, shopping, local experiences..."></textarea>
+        </div>
+
+        <div class="field">
+          <label for="travelType">Who are you traveling with?</label>
+          <select id="travelType" name="travelType">
+            <option>Solo</option>
+            <option>Friends</option>
+            <option>Partner</option>
+            <option>Family</option>
+          </select>
+        </div>
+
+        <button type="submit">Create my itinerary →</button>
+
+        <p class="note">
+          Your personalized travel planner is coming soon.
+        </p>
+
+      </form>
+      <div id="resultSection" style="display:none; margin-top:30px; background:#f1ebe2; padding:25px; border-radius:6px;">
+    <h2 style="font-family:'Playfair Display',serif; margin-bottom:15px;">
+        Your adventure awaits.
+    </h2>
+    <pre id="result" style="white-space:pre-wrap; font-family:'DM Sans',sans-serif; line-height:1.8;"></pre>
+</div>
+
+    </div>
+  </main>
+
+  <footer>© 2026 One Idea. Made for the curious.</footer>
+
+  <script>
+    
+document.getElementById("tripForm").addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const button = document.querySelector("button");
+    button.textContent = "Creating your itinerary...";
+    button.disabled = true;
+
+    const formData = {
+        destination: document.getElementById("destination").value,
+        days: document.getElementById("days").value,
+        budget: document.getElementById("budget").value,
+        travelStyle: document.getElementById("travelStyle").value,
+        interests: document.getElementById("interests").value,
+        travelType: document.getElementById("travelType").value
+    };
+
+    try {
+
+        const response = await fetch("/api/itinerary", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+
+        document.getElementById("result").textContent = result.itinerary;
+        document.getElementById("resultSection").style.display = "block";
+
+    } catch (error) {
+
+        alert("Something went wrong. Please try again.");
+
+    }
+
+    button.textContent = "Create my itinerary →";
+    button.disabled = false;
+
+});
+
+  </script>
+
+</body>
+</html>
