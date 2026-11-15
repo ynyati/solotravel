@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>one idea — a solo travel companion</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=DM+Sans:wght@400;500;700;900&display=swap');
+
+:root{
+  --grape:   #8C6BFF;
+  --sky:     #33C7E0;
+  --sun:     #FFC93C;
+  --coral:   #FF6357;
+  --mint:    #3ED6A6;
+  --cream:   #FFFBF2;
+  --ink:     #2C2440;
+  --ink-70:  rgba(44,36,64,0.7);
+  --ink-45:  rgba(44,36,64,0.45);
+}
+
+*{box-sizing:border-box;}
+
+html,body{
+  margin:0;
+  padding:0;
+  min-height:100%;
+  font-family:'DM Sans',sans-serif;
+  color:var(--ink);
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:36px 16px;
+  position:relative;
+  overflow-x:hidden;
+  background:
+    radial-gradient(circle at 8% 12%, var(--sun) 0%, transparent 38%),
+    radial-gradient(circle at 92% 18%, var(--mint) 0%, transparent 40%),
+    radial-gradient(circle at 15% 92%, var(--coral) 0%, transparent 42%),
+    linear-gradient(135deg, var(--grape) 0%, var(--sky) 100%);
+  background-attachment:fixed;
+}
+
+.stage{
+  width:100%;
+  max-width:440px;
+  position:relative;
+}
+
+/* ---------- shared bits ---------- */
+.eyebrow{
+  font-size:12px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.85);
+  font-weight:700;
+}
+
+.orbit-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:22px;
+}
+.orbit-dot{
+  width:34px;height:34px;
+  border-radius:50%;
+  background:var(--sun);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+  border:2.5px solid var(--ink);
+  transform:rotate(-8deg);
+  flex-shrink:0;
+}
+
+/* ---------- screen: ask ---------- */
+#askScreen{
+  animation:popIn 0.5s cubic-bezier(.2,1.2,.4,1) both;
+}
+
+.headline{
+  font-family:'Fredoka',sans-serif;
+  font-weight:600;
+  font-size:clamp(32px,8vw,46px);
+  line-height:1.06;
+  color:#fff;
+  margin:0 0 28px;
+  text-shadow:3px 3px 0 rgba(44,36,64,0.35);
+}
+.headline .pop{
+  color:var(--sun);
+  display:inline-block;
+  transform:rotate(-3deg);
+}
+
+.sub{
+  color:rgba(255,255,255,0.92);
+  font-size:14.5px;
+  line-height:1.55;
+  margin-bottom:28px;
+  max-width:380px;
+  font-weight:500;
+}
+
+.card{
+  background:var(--cream);
+  border-radius:22px;
+  border:3px solid var(--ink);
+  padding:22px 22px 24px;
+  box-shadow:8px 8px 0 var(--ink);
+}
+
+.field-label{
+  font-size:12px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--grape);
+  font-weight:700;
+  margin-bottom:10px;
+  display:block;
+}
+
+.field-outer{
+  position:relative;
+}
+
+.field-wrap{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#fff;
+  border:2.5px solid var(--ink);
+  border-radius:16px;
+  padding:6px 6px 6px 16px;
+  position:relative;
+  z-index:2;
+}
+
+.suggest-list{
+  position:absolute;
+  top:calc(100% + 8px);
+  left:0;
+  right:0;
+  background:#fff;
+  border:2.5px solid var(--ink);
+  border-radius:16px;
+  box-shadow:5px 5px 0 var(--ink);
+  padding:6px;
+  z-index:5;
+  max-height:250px;
+  overflow-y:auto;
+  display:none;
+}
+.suggest-item{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+  padding:10px 12px;
+  border-radius:11px;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:600;
+  color:var(--ink);
+}
+.suggest-item .city-part{
+  font-family:'Fredoka',sans-serif;
+}
+.suggest-item .country-part{
+  font-size:12px;
+  font-weight:500;
+  color:var(--ink-45);
+}
+.suggest-item.active,
+.suggest-item:hover{
+  background:#FFE1A8;
+}
+.suggest-empty{
+  padding:10px 12px;
+  font-size:12.5px;
+  font-weight:600;
+  color:var(--ink-45);
+}
+
+#cityInput{
+  flex:1;
+  background:transparent;
+  border:none;
+  outline:none;
+  font-family:'Fredoka',sans-serif;
+  font-weight:500;
+  font-size:clamp(18px,5vw,21px);
+  color:var(--ink);
+  padding:8px 0;
+}
+#cityInput::placeholder{
+  color:var(--ink-45);
+}
+
+.go-btn{
+  width:46px;height:46px;
+  border-radius:12px;
+  border:2.5px solid var(--ink);
+  background:var(--coral);
+  color:#fff;
+  cursor:pointer;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:3px 3px 0 var(--ink);
+  transition:transform 0.12s ease, box-shadow 0.12s ease;
+}
+.go-btn:hover{
+  transform:translate(-2px,-2px);
+  box-shadow:5px 5px 0 var(--ink);
+}
+.go-btn:active{
+  transform:translate(1px,1px);
+  box-shadow:1px 1px 0 var(--ink);
+}
+.go-btn:disabled{
+  opacity:0.5;
+  cursor:not-allowed;
+  transform:none;
+  box-shadow:3px 3px 0 var(--ink);
+}
+.go-btn svg{width:18px;height:18px;}
+
+.hint-row{
+  margin-top:18px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.hint-chip{
+  font-size:12px;
+  font-weight:700;
+  padding:8px 14px;
+  border-radius:999px;
+  border:2px solid var(--ink);
+  color:var(--ink);
+  background:#fff;
+  cursor:pointer;
+  transition:all 0.15s ease;
+  font-family:'DM Sans',sans-serif;
+}
+.hint-chip:nth-child(1){background:#FFE1A8;}
+.hint-chip:nth-child(2){background:#C9F5E4;}
+.hint-chip:nth-child(3){background:#D6E0FF;}
+.hint-chip:nth-child(4){background:#FFD3CC;}
+.hint-chip:nth-child(5){background:#F0D9FF;}
+.hint-chip:hover{
+  transform:translateY(-2px);
+}
+
+.error-msg{
+  margin-top:14px;
+  font-size:12.5px;
+  font-weight:700;
+  color:#fff;
+  background:var(--coral);
+  border:2px solid var(--ink);
+  border-radius:10px;
+  padding:8px 12px;
+  display:none;
+}
+
+/* ---------- screen: loading ---------- */
+#loadingScreen{
+  display:none;
+  text-align:center;
+  padding:60px 0;
+}
+.bounce-pin{
+  width:64px;height:64px;
+  margin:0 auto 18px;
+  border-radius:50%;
+  background:var(--sun);
+  border:3px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;
+  animation:bounce 0.7s ease-in-out infinite;
+}
+.loading-text{
+  font-size:14px;
+  font-weight:700;
+  color:#fff;
+  text-shadow:2px 2px 0 rgba(44,36,64,0.35);
+}
+
+/* ---------- screen: result (postcard) ---------- */
+#resultScreen{
+  display:none;
+  animation:popIn 0.5s cubic-bezier(.2,1.2,.4,1) both;
+}
+
+.postcard{
+  background:var(--cream);
+  border-radius:22px;
+  border:3px solid var(--ink);
+  position:relative;
+  padding:24px 24px 26px;
+  box-shadow:8px 8px 0 var(--ink);
+  overflow:visible;
+}
+
+.postcard-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin-bottom:18px;
+}
+.dest-label{
+  font-size:11px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--grape);
+  font-weight:700;
+  margin-bottom:4px;
+}
+.dest-name{
+  font-family:'Fredoka',sans-serif;
+  font-weight:600;
+  font-size:22px;
+  color:var(--ink);
+}
+.count-badge{
+  background:var(--sky);
+  border:2px solid var(--ink);
+  border-radius:10px;
+  padding:5px 10px;
+  font-size:11px;
+  font-weight:700;
+  color:var(--ink);
+  transform:rotate(4deg);
+  white-space:nowrap;
+}
+
+.idea-box{
+  background:#fff;
+  border:2.5px dashed var(--grape);
+  border-radius:16px;
+  padding:22px 18px;
+  text-align:center;
+  min-height:88px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.idea-text{
+  font-family:'Fredoka',sans-serif;
+  font-weight:500;
+  font-size:clamp(20px,5.5vw,25px);
+  line-height:1.32;
+  color:var(--ink);
+}
+
+.sticker{
+  position:absolute;
+  top:-18px;
+  right:-14px;
+  width:76px;height:76px;
+  background:var(--coral);
+  border:3px solid var(--ink);
+  border-radius:50%;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-size:11px;
+  font-weight:700;
+  line-height:1.25;
+  text-transform:uppercase;
+  transform:rotate(12deg) scale(0);
+  font-family:'DM Sans',sans-serif;
+  box-shadow:3px 3px 0 rgba(44,36,64,0.3);
+}
+.sticker span{padding:0 4px;}
+
+@keyframes stickerIn{
+  0%{ transform:rotate(12deg) scale(0); }
+  70%{ transform:rotate(12deg) scale(1.15); }
+  100%{ transform:rotate(12deg) scale(1); }
+}
+
+.actions{
+  display:flex;
+  gap:12px;
+  margin-top:22px;
+}
+.action-btn{
+  flex:1;
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;
+  font-weight:700;
+  padding:14px 10px;
+  border-radius:14px;
+  cursor:pointer;
+  transition:transform 0.12s ease, box-shadow 0.12s ease;
+  border:2.5px solid var(--ink);
+  box-shadow:4px 4px 0 var(--ink);
+}
+.action-btn.ghost{
+  background:#fff;
+  color:var(--ink);
+}
+.action-btn.primary{
+  background:var(--mint);
+  color:var(--ink);
+}
+.action-btn:hover{
+  transform:translate(-2px,-2px);
+  box-shadow:6px 6px 0 var(--ink);
+}
+.action-btn:active{
+  transform:translate(1px,1px);
+  box-shadow:2px 2px 0 var(--ink);
+}
+.action-btn:disabled{
+  opacity:0.5;
+  cursor:not-allowed;
+  transform:none;
+  box-shadow:4px 4px 0 var(--ink);
+}
+
+/* ---------- animations ---------- */
+@keyframes popIn{
+  from{opacity:0; transform:translateY(14px) scale(0.98);}
+  to{opacity:1; transform:translateY(0) scale(1);}
+}
+@keyframes bounce{
+  0%,100%{ transform:translateY(0) rotate(-4deg); }
+  50%{ transform:translateY(-10px) rotate(4deg); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important;}
+}
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <!-- ASK SCREEN -->
+  <div id="askScreen">
+    <div class="orbit-row">
+      <div class="orbit-dot">🧭</div>
+      <span class="eyebrow">one idea · your solo travel sidekick</span>
+    </div>
+
+    <h1 class="headline">Skip the plan.<br>Get <span class="pop">one idea.</span></h1>
+
+    <div class="card">
+      <label class="field-label" for="cityInput">Where are you today?</label>
+      <div class="field-outer">
+        <div class="field-wrap">
+          <input id="cityInput" type="text" placeholder="Dublin, Ireland" autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="suggestList" />
+          <button class="go-btn" id="goBtn" aria-label="Get an idea">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </button>
+        </div>
+        <div class="suggest-list" id="suggestList" role="listbox"></div>
+      </div>
+
+      <div class="hint-row">
+        <button class="hint-chip" data-city="Dublin, Ireland">🇮🇪 Dublin</button>
+        <button class="hint-chip" data-city="Amsterdam, Netherlands">🇳🇱 Amsterdam</button>
+        <button class="hint-chip" data-city="London, UK">🇬🇧 London</button>
+        <button class="hint-chip" data-city="Lisbon, Portugal">🇵🇹 Lisbon</button>
+        <button class="hint-chip" data-city="Mexico City, Mexico">🇲🇽 Mexico City</button>
+      </div>
+
+      <p class="error-msg" id="errorMsg">Oops, the idea got lost — try again!</p>
+    </div>
+  </div>
+
+  <!-- LOADING SCREEN -->
+  <div id="loadingScreen">
+    <div class="bounce-pin">🎒</div>
+    <p class="loading-text" id="loadingText">packing your idea…</p>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div id="resultScreen">
+    <div class="postcard">
+      <div class="sticker" id="stamp"><span>go today!</span></div>
+      <div class="postcard-top">
+        <div>
+          <div class="dest-label">You're in</div>
+          <div class="dest-name" id="resultCity">—</div>
+        </div>
+        <div class="count-badge" id="countBadge">IDEA #1</div>
+      </div>
+
+      <div class="idea-box">
+        <div class="idea-text" id="ideaText"></div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="action-btn ghost" id="anotherBtn">🔀 Another one</button>
+      <button class="action-btn primary" id="newCityBtn">📍 New city</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const askScreen = document.getElementById('askScreen');
+const loadingScreen = document.getElementById('loadingScreen');
+const resultScreen = document.getElementById('resultScreen');
+const cityInput = document.getElementById('cityInput');
+const goBtn = document.getElementById('goBtn');
+const errorMsg = document.getElementById('errorMsg');
+const loadingText = document.getElementById('loadingText');
+const resultCity = document.getElementById('resultCity');
+const ideaText = document.getElementById('ideaText');
+const countBadge = document.getElementById('countBadge');
+const stamp = document.getElementById('stamp');
+const anotherBtn = document.getElementById('anotherBtn');
+const newCityBtn = document.getElementById('newCityBtn');
+
+let currentCity = '';
+let usedIdeas = [];
+let count = 0;
+
+/* ---------- city autocomplete ---------- */
+const CITIES = [
+  ["Dublin","Ireland"],["Cork","Ireland"],["Galway","Ireland"],["Belfast","UK"],
+  ["London","UK"],["Manchester","UK"],["Edinburgh","UK"],["Glasgow","UK"],["Liverpool","UK"],["Bristol","UK"],["Oxford","UK"],
+  ["Amsterdam","Netherlands"],["Rotterdam","Netherlands"],["Utrecht","Netherlands"],
+  ["Paris","France"],["Lyon","France"],["Marseille","France"],["Nice","France"],["Bordeaux","France"],
+  ["Berlin","Germany"],["Munich","Germany"],["Hamburg","Germany"],["Cologne","Germany"],["Frankfurt","Germany"],
+  ["Vienna","Austria"],["Salzburg","Austria"],
+  ["Zurich","Switzerland"],["Geneva","Switzerland"],["Lucerne","Switzerland"],
+  ["Rome","Italy"],["Milan","Italy"],["Florence","Italy"],["Venice","Italy"],["Naples","Italy"],["Bologna","Italy"],
+  ["Madrid","Spain"],["Barcelona","Spain"],["Seville","Spain"],["Valencia","Spain"],["Granada","Spain"],
+  ["Lisbon","Portugal"],["Porto","Portugal"],
+  ["Athens","Greece"],["Santorini","Greece"],["Thessaloniki","Greece"],
+  ["Copenhagen","Denmark"],["Stockholm","Sweden"],["Gothenburg","Sweden"],["Oslo","Norway"],["Bergen","Norway"],["Helsinki","Finland"],
+  ["Reykjavik","Iceland"],
+  ["Brussels","Belgium"],["Bruges","Belgium"],["Antwerp","Belgium"],
+  ["Prague","Czechia"],["Budapest","Hungary"],["Warsaw","Poland"],["Krakow","Poland"],["Bratislava","Slovakia"],
+  ["Zagreb","Croatia"],["Dubrovnik","Croatia"],["Split","Croatia"],["Ljubljana","Slovenia"],
+  ["Istanbul","Turkey"],["Cappadocia","Turkey"],
+  ["Moscow","Russia"],["St. Petersburg","Russia"],
+  ["Dubai","UAE"],["Abu Dhabi","UAE"],["Doha","Qatar"],["Tel Aviv","Israel"],["Jerusalem","Israel"],["Amman","Jordan"],
+  ["Marrakech","Morocco"],["Casablanca","Morocco"],["Fez","Morocco"],
+  ["Cairo","Egypt"],["Cape Town","South Africa"],["Johannesburg","South Africa"],["Nairobi","Kenya"],
+  ["Accra","Ghana"],["Lagos","Nigeria"],["Zanzibar","Tanzania"],
+  ["New York City","USA"],["Los Angeles","USA"],["San Francisco","USA"],["Chicago","USA"],["Miami","USA"],
+  ["Austin","USA"],["Seattle","USA"],["Boston","USA"],["New Orleans","USA"],["Portland","USA"],["Denver","USA"],["Nashville","USA"],
+  ["Las Vegas","USA"],["Washington D.C.","USA"],["Honolulu","USA"],
+  ["Toronto","Canada"],["Vancouver","Canada"],["Montreal","Canada"],["Quebec City","Canada"],
+  ["Mexico City","Mexico"],["Oaxaca","Mexico"],["Cancun","Mexico"],["Tulum","Mexico"],["Guadalajara","Mexico"],
+  ["Havana","Cuba"],["San Juan","Puerto Rico"],["Bridgetown","Barbados"],["Nassau","Bahamas"],
+  ["Bogota","Colombia"],["Medellin","Colombia"],["Cartagena","Colombia"],
+  ["Lima","Peru"],["Cusco","Peru"],["Quito","Ecuador"],["Santiago","Chile"],["Buenos Aires","Argentina"],
+  ["Rio de Janeiro","Brazil"],["Sao Paulo","Brazil"],["Salvador","Brazil"],["La Paz","Bolivia"],["Montevideo","Uruguay"],
+  ["Tokyo","Japan"],["Osaka","Japan"],["Kyoto","Japan"],["Sapporo","Japan"],["Hiroshima","Japan"],
+  ["Seoul","South Korea"],["Busan","South Korea"],
+  ["Beijing","China"],["Shanghai","China"],["Hong Kong","China"],["Chengdu","China"],
+  ["Taipei","Taiwan"],["Singapore","Singapore"],
+  ["Bangkok","Thailand"],["Chiang Mai","Thailand"],["Phuket","Thailand"],
+  ["Hanoi","Vietnam"],["Ho Chi Minh City","Vietnam"],["Da Nang","Vietnam"],
+  ["Siem Reap","Cambodia"],["Phnom Penh","Cambodia"],["Luang Prabang","Laos"],
+  ["Kuala Lumpur","Malaysia"],["Bali","Indonesia"],["Jakarta","Indonesia"],["Yogyakarta","Indonesia"],
+  ["Manila","Philippines"],["Cebu","Philippines"],
+  ["Mumbai","India"],["Delhi","India"],["Goa","India"],["Jaipur","India"],["Varanasi","India"],["Kerala","India"],
+  ["Kathmandu","Nepal"],["Colombo","Sri Lanka"],
+  ["Sydney","Australia"],["Melbourne","Australia"],["Brisbane","Australia"],["Perth","Australia"],
+  ["Auckland","New Zealand"],["Wellington","New Zealand"],["Queenstown","New Zealand"],
+  ["Fiji","Fiji"],["Bora Bora","French Polynesia"]
+];
+
+const suggestList = document.getElementById('suggestList');
+let activeIndex = -1;
+let currentMatches = [];
+
+function renderSuggestions(query){
+  const q = query.trim().toLowerCase();
+  if(!q){
+    closeSuggestions();
+    return;
+  }
+  currentMatches = CITIES
+    .filter(([city,country]) => city.toLowerCase().includes(q) || country.toLowerCase().includes(q))
+    .sort((a,b) => a[0].toLowerCase().indexOf(q) - b[0].toLowerCase().indexOf(q))
+    .slice(0,6);
+
+  activeIndex = -1;
+  suggestList.innerHTML = '';
+
+  if(currentMatches.length === 0){
+    suggestList.innerHTML = `<div class="suggest-empty">No matches — you can still type any place ✏️</div>`;
+    suggestList.style.display = 'block';
+    cityInput.setAttribute('aria-expanded','true');
+    return;
+  }
+
+  currentMatches.forEach(([city,country], i)=>{
+    const item = document.createElement('div');
+    item.className = 'suggest-item';
+    item.setAttribute('role','option');
+    item.dataset.index = i;
+    item.innerHTML = `<span class="city-part">${city}</span><span class="country-part">${country}</span>`;
+    item.addEventListener('mousedown', (e)=>{
+      e.preventDefault();
+      selectCity(city, country);
+    });
+    suggestList.appendChild(item);
+  });
+
+  suggestList.style.display = 'block';
+  cityInput.setAttribute('aria-expanded','true');
+}
+
+function closeSuggestions(){
+  suggestList.style.display = 'none';
+  suggestList.innerHTML = '';
+  currentMatches = [];
+  activeIndex = -1;
+  cityInput.setAttribute('aria-expanded','false');
+}
+
+function highlightActive(){
+  [...suggestList.children].forEach((el,i)=>{
+    el.classList.toggle('active', i === activeIndex);
+  });
+  if(activeIndex >= 0 && suggestList.children[activeIndex]){
+    suggestList.children[activeIndex].scrollIntoView({ block:'nearest' });
+  }
+}
+
+function selectCity(city, country){
+  cityInput.value = `${city}, ${country}`;
+  closeSuggestions();
+  requestIdea();
+}
+
+cityInput.addEventListener('input', ()=> renderSuggestions(cityInput.value));
+cityInput.addEventListener('focus', ()=>{
+  if(cityInput.value.trim()) renderSuggestions(cityInput.value);
+});
+
+document.addEventListener('click', (e)=>{
+  if(!e.target.closest('.field-outer')) closeSuggestions();
+});
+
+const loadingPhrases = [
+  'packing your idea…',
+  'asking a friendly local…',
+  'checking the vibes…',
+  'spinning the globe…',
+  'sniffing out something fun…'
+];
+
+document.querySelectorAll('.hint-chip').forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    cityInput.value = chip.dataset.city;
+    closeSuggestions();
+    cityInput.focus();
+  });
+});
+
+goBtn.addEventListener('click', closeSuggestions);
+
+cityInput.addEventListener('keydown', (e)=>{
+  const isOpen = suggestList.style.display === 'block' && currentMatches.length > 0;
+
+  if(e.key === 'ArrowDown'){
+    if(isOpen){
+      e.preventDefault();
+      activeIndex = (activeIndex + 1) % currentMatches.length;
+      highlightActive();
+    }
+    return;
+  }
+  if(e.key === 'ArrowUp'){
+    if(isOpen){
+      e.preventDefault();
+      activeIndex = (activeIndex - 1 + currentMatches.length) % currentMatches.length;
+      highlightActive();
+    }
+    return;
+  }
+  if(e.key === 'Enter'){
+    if(isOpen && activeIndex >= 0){
+      e.preventDefault();
+      const [city,country] = currentMatches[activeIndex];
+      selectCity(city, country);
+    }else{
+      closeSuggestions();
+      requestIdea();
+    }
+    return;
+  }
+  if(e.key === 'Escape'){
+    closeSuggestions();
+  }
+});
+goBtn.addEventListener('click', requestIdea);
+anotherBtn.addEventListener('click', requestIdea);
+newCityBtn.addEventListener('click', ()=>{
+  usedIdeas = [];
+  count = 0;
+  resultScreen.style.display = 'none';
+  askScreen.style.display = 'block';
+  cityInput.value = '';
+  cityInput.focus();
+});
+
+function show(el){
+  [askScreen, loadingScreen, resultScreen].forEach(s => s.style.display = 'none');
+  el.style.display = 'block';
+}
+
+async function requestIdea(){
+  const city = cityInput.value.trim() || currentCity;
+  if(!city){
+    cityInput.focus();
+    return;
+  }
+  currentCity = city;
+  errorMsg.style.display = 'none';
+  goBtn.disabled = true;
+  anotherBtn.disabled = true;
+
+  loadingText.textContent = loadingPhrases[Math.floor(Math.random()*loadingPhrases.length)];
+  show(loadingScreen);
+
+  try{
+    const idea = await fetchIdea(city, usedIdeas);
+    usedIdeas.push(idea);
+    count += 1;
+
+    resultCity.textContent = city;
+    ideaText.textContent = idea;
+    countBadge.textContent = 'IDEA #' + count;
+
+    stamp.style.animation = 'none';
+    void stamp.offsetWidth;
+    stamp.style.animation = 'stickerIn 0.4s cubic-bezier(.2,1.6,.4,1) 0.25s forwards';
+
+    show(resultScreen);
+  }catch(err){
+    console.error(err);
+    show(askScreen);
+    errorMsg.style.display = 'block';
+  }finally{
+    goBtn.disabled = false;
+    anotherBtn.disabled = false;
+  }
+}
+
+async function fetchIdea(city, avoid){
+  const avoidance = avoid.length
+    ? ` Don't repeat these already-given ideas: ${avoid.slice(-4).join(' | ')}.`
+    : '';
+
+  // Short, tightly-scoped prompt + small max_tokens keeps this fast.
+  const prompt = `Give ONE short, fun, specific thing for a solo traveler to do today in ${city}. `
+    + `Max 12 words. Casual, upbeat, playful tone — like a fun tip from a friend, not a guidebook. `
+    + `Must name a real, specific place (not generic "explore the city"). `
+    + `You may add one fitting emoji at the end, optional. No quotes, no preamble, just the tip.`
+    + `${avoidance}`
+    + ` Examples of the style: "Hop the train to Howth and hike the cliffs 🌊" / "Jump in a canal near Amsterdam Noord" / "Grab strawberries at Borough Market"`;
+
+  const response = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "claude-sonnet-4-6",
+      max_tokens: 60,
+      messages: [
+        { role: "user", content: prompt }
+      ]
+    })
+  });
+
+  if(!response.ok){
+    throw new Error('Request failed: ' + response.status);
+  }
+
+  const data = await response.json();
+  const textBlock = (data.content || []).find(b => b.type === 'text');
+  let text = textBlock ? textBlock.text.trim() : '';
+  text = text.replace(/^["'“]|["'”]$/g, '').trim();
+  if(!text){
+    throw new Error('Empty response');
+  }
+  return text;
+}
+</script>
+
+</body>
+</html>
