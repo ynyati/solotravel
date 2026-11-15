@@ -2,275 +2,405 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Idea | Your Solo Travel Companion</title>
 
-  <title>One Idea | Your Solo Travel Companion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=DM+Sans:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --grape: #8C6BFF;
+  --sky: #33C7E0;
+  --sun: #FFC93C;
+  --coral: #FF6357;
+  --mint: #3ED6A6;
+  --cream: #FFFBF2;
+  --ink: #2C2440;
+  --ink-70: rgba(44,36,64,0.7);
+  --ink-45: rgba(44,36,64,0.45);
+}
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: #fbf8f2;
-      color: #292821;
-    }
+html {
+  scroll-behavior: smooth;
+}
 
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 25px 8%;
-      border-bottom: 1px solid #e8e2d8;
-    }
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 8% 12%, var(--sun) 0%, transparent 32%),
+    radial-gradient(circle at 92% 18%, var(--mint) 0%, transparent 35%),
+    radial-gradient(circle at 15% 92%, var(--coral) 0%, transparent 38%),
+    linear-gradient(135deg, var(--grape) 0%, var(--sky) 100%);
+  background-attachment: fixed;
+}
 
-    .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 27px;
-      font-weight: 700;
-    }
+/* NAVIGATION */
 
-    nav a {
-      text-decoration: none;
-      color: #292821;
-      margin-left: 25px;
-      font-size: 14px;
-    }
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 8%;
+  border-bottom: 2px solid rgba(44,36,64,0.18);
+  background: rgba(255,251,242,0.14);
+  backdrop-filter: blur(12px);
+}
 
-    nav a:hover {
-      color: #a16f54;
-    }
+.logo {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: white;
+  text-shadow: 2px 2px 0 rgba(44,36,64,0.25);
+}
 
-    .hero {
-      padding: 100px 8% 90px;
-      text-align: center;
-      max-width: 1000px;
-      margin: auto;
-    }
+nav a {
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  margin-left: 24px;
+  font-size: 14px;
+  font-weight: 700;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
 
-    .eyebrow {
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      font-size: 11px;
-      color: #a16f54;
-      font-weight: 700;
-      margin-bottom: 22px;
-    }
+nav a:hover {
+  color: var(--sun);
+  transform: translateY(-2px);
+}
 
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(42px, 7vw, 76px);
-      line-height: 1.12;
-      font-weight: 500;
-      margin-bottom: 22px;
-    }
+/* HERO */
 
-    .hero p {
-      color: #77736b;
-      font-size: 17px;
-      line-height: 1.8;
-      max-width: 600px;
-      margin: 0 auto 32px;
-    }
+.hero {
+  padding: 105px 20px 100px;
+  text-align: center;
+  max-width: 1050px;
+  margin: auto;
+}
 
-    .button {
-      display: inline-block;
-      padding: 15px 28px;
-      background: #a16f54;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-      font-size: 14px;
-      font-weight: 600;
-    }
+.eyebrow {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 12px;
+  color: rgba(255,255,255,0.9);
+  font-weight: 700;
+  margin-bottom: 22px;
+}
 
-    .button:hover {
-      background: #80563f;
-    }
+.hero h1 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: clamp(42px, 8vw, 76px);
+  line-height: 1.06;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 25px;
+  text-shadow: 4px 4px 0 rgba(44,36,64,0.3);
+}
 
-    .section {
-      padding: 65px 8%;
-      max-width: 1200px;
-      margin: auto;
-    }
+.hero h1 span {
+  color: var(--sun);
+  display: inline-block;
+  transform: rotate(-2deg);
+}
 
-    .section-heading {
-      font-family: 'Playfair Display', serif;
-      font-size: 38px;
-      margin-bottom: 12px;
-    }
+.hero p {
+  color: rgba(255,255,255,0.95);
+  font-size: 16px;
+  line-height: 1.8;
+  max-width: 610px;
+  margin: 0 auto 34px;
+  font-weight: 500;
+}
 
-    .section-description {
-      color: #77736b;
-      margin-bottom: 30px;
-      line-height: 1.7;
-    }
+/* BUTTONS */
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-    }
+.button {
+  display: inline-block;
+  padding: 15px 25px;
+  background: var(--coral);
+  color: white;
+  text-decoration: none;
+  border: 2.5px solid var(--ink);
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
 
-    .card {
-      background: #f1ebe2;
-      padding: 35px;
-      border-radius: 6px;
-      min-height: 220px;
-    }
+.button:hover {
+  transform: translate(-2px,-2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
 
-    .card-number {
-      color: #a16f54;
-      font-size: 12px;
-      letter-spacing: 2px;
-      margin-bottom: 20px;
-    }
+.button:active {
+  transform: translate(1px,1px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
 
-    .card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 28px;
-      margin-bottom: 12px;
-    }
+/* FEATURE SECTION */
 
-    .card p {
-      color: #77736b;
-      line-height: 1.7;
-      margin-bottom: 22px;
-    }
+.section {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 45px 30px 100px;
+}
 
-    .card a {
-      color: #80563f;
-      font-weight: 700;
-      text-decoration: none;
-      font-size: 14px;
-    }
+.section-heading {
+  font-family: 'Fredoka', sans-serif;
+  font-size: clamp(32px,5vw,44px);
+  font-weight: 600;
+  color: white;
+  margin-bottom: 12px;
+  text-shadow: 2px 2px 0 rgba(44,36,64,0.25);
+}
 
-    .journal {
-      text-align: center;
-      background: #eee7dc;
-      max-width: none;
-      padding: 75px 8%;
-    }
+.section-description {
+  color: rgba(255,255,255,0.92);
+  margin-bottom: 32px;
+  line-height: 1.7;
+  font-size: 15px;
+}
 
-    .journal p {
-      max-width: 550px;
-      margin: 15px auto 25px;
-      color: #77736b;
-      line-height: 1.8;
-    }
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 25px;
+}
 
-    footer {
-      padding: 30px 8%;
-      text-align: center;
-      font-size: 12px;
-      color: #77736b;
-    }
+.card {
+  background: var(--cream);
+  padding: 34px;
+  border-radius: 22px;
+  border: 3px solid var(--ink);
+  min-height: 255px;
+  box-shadow: 8px 8px 0 var(--ink);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
-    @media (max-width: 650px) {
-      nav {
-        flex-direction: column;
-        gap: 18px;
-      }
+.card:hover {
+  transform: translate(-3px,-3px);
+  box-shadow: 11px 11px 0 var(--ink);
+}
 
-      nav a {
-        margin: 0 8px;
-      }
+.card-number {
+  color: var(--grape);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
 
-      .cards {
-        grid-template-columns: 1fr;
-      }
+.card h3 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
 
-      .hero {
-        padding-top: 65px;
-      }
-    }
-  </style>
+.card p {
+  color: var(--ink-70);
+  line-height: 1.7;
+  font-size: 14px;
+  margin-bottom: 23px;
+}
+
+.card a {
+  display: inline-block;
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 14px;
+  border-bottom: 2px solid var(--coral);
+  padding-bottom: 3px;
+  transition: color 0.15s ease;
+}
+
+.card a:hover {
+  color: var(--grape);
+}
+
+/* JOURNAL SECTION */
+
+.journal {
+  text-align: center;
+  padding: 75px 20px 85px;
+  background: var(--cream);
+  border-top: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+}
+
+.journal .eyebrow {
+  color: var(--grape);
+}
+
+.journal .section-heading {
+  color: var(--ink);
+  text-shadow: none;
+}
+
+.journal p {
+  max-width: 550px;
+  margin: 15px auto 28px;
+  color: var(--ink-70);
+  line-height: 1.8;
+  font-size: 15px;
+}
+
+.journal .button {
+  background: var(--mint);
+  color: var(--ink);
+}
+
+/* FOOTER */
+
+footer {
+  padding: 30px 20px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+  nav {
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px 15px;
+  }
+
+  nav a {
+    margin: 0 9px;
+    font-size: 13px;
+  }
+
+  .hero {
+    padding: 75px 22px 70px;
+  }
+
+  .section {
+    padding: 35px 22px 75px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .card {
+    padding: 27px;
+    min-height: auto;
+  }
+
+  .journal {
+    padding: 65px 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <nav>
-    <div class="logo">one idea.</div>
+<nav>
+  <div class="logo">one idea.</div>
 
-    <div>
-      <a href="explore.html">Explore</a>
-      <a href="itinerary.html">Plan a Trip</a>
-      <a href="journal.html">Journal</a>
+  <div>
+    <a href="explore.html">Explore</a>
+    <a href="itinerary.html">Plan a Trip</a>
+    <a href="journal.html">Journal</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="eyebrow">🧭 A little more adventure</div>
+
+  <h1>The world is waiting.<br>Go <span>see it.</span></h1>
+
+  <p>
+    A little inspiration for going somewhere new.
+    Discover places, plan your next adventure, and
+    find joy in exploring the world on your own.
+  </p>
+
+  <a class="button" href="explore.html">
+    Find your next adventure →
+  </a>
+</section>
+
+<section class="section" id="plan">
+  <div class="section-heading">Where will you go?</div>
+
+  <p class="section-description">
+    A little inspiration, a little planning, and a lot of exploring.
+  </p>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-number">01 — DISCOVER</div>
+      <h3>Find one idea. ✨</h3>
+      <p>
+        Not sure what to do? Discover a fun solo
+        activity in whatever city you're visiting.
+      </p>
+      <a href="explore.html">Explore destinations →</a>
     </div>
-  </nav>
 
-  <section class="hero">
-    <div class="eyebrow">A little more adventure</div>
-
-    <h1>The world is waiting.<br>Go see it.</h1>
-
-    <p>
-      A little inspiration for going somewhere new.
-      Discover places, plan your next adventure, and
-      find joy in exploring the world on your own.
-    </p>
-
-    <a class="button" href="explore.html">
-      Find your next adventure →
-    </a>
-  </section>
-
-  <section class="section" id="plan">
-    <div class="section-heading">Where will you go?</div>
-
-    <p class="section-description">
-      A little inspiration, a little planning, and a lot of exploring.
-    </p>
-
-    <div class="cards">
-
-      <div class="card">
-        <div class="card-number">01 — DISCOVER</div>
-        <h3>Find one idea.</h3>
-        <p>
-          Not sure what to do? Discover a fun solo
-          activity in whatever city you're visiting.
-        </p>
-        <a href="explore.html">Explore destinations →</a>
-      </div>
-
-      <div class="card">
-        <div class="card-number">02 — PLAN</div>
-        <h3>Plan your escape.</h3>
-        <p>
-          Build a personalized itinerary around your
-          interests, budget, and travel style.
-        </p>
-        <a href="#plan">Start planning →</a>
-      </div>
-
+    <div class="card">
+      <div class="card-number">02 — PLAN</div>
+      <h3>Plan your escape. 🌍</h3>
+      <p>
+        Build a personalized itinerary around your
+        interests, budget, and travel style.
+      </p>
+      <a href="itinerary.html">Start planning →</a>
     </div>
-  </section>
 
-  <section class="journal" id="journal">
-    <div class="eyebrow">The journal</div>
+  </div>
+</section>
 
-    <h2 class="section-heading">Life is better out there.</h2>
+<section class="journal" id="journal">
+  <div class="eyebrow">✏️ The journal</div>
 
-    <p>
-      Notes from solo adventures, city guides,
-      travel recommendations, and everything
-      in between.
-    </p>
+  <h2 class="section-heading">Life is better out there.</h2>
 
-    <a class="button" href="journal.html">Explore the journal →</a>
-  </section>
+  <p>
+    Notes from solo adventures, city guides,
+    travel recommendations, and everything
+    in between.
+  </p>
 
-  <footer>
-    © 2026 One Idea. Made for the curious.
-  </footer>
+  <a class="button" href="journal.html">Explore the journal →</a>
+</section>
+
+<footer>
+  © 2026 One Idea. Made for the curious. 🧭
+</footer>
 
 </body>
 </html>
