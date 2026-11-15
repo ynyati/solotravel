@@ -46,6 +46,7 @@ body{
   background-attachment:fixed;
 }
 
+/* ---------- main layout ---------- */
 .stage{
   width:100%;
   max-width:440px;
@@ -54,8 +55,11 @@ body{
 
 /* ---------- back button ---------- */
 .back-button{
+  position:fixed;
+  top:24px;
+  left:24px;
+  z-index:20;
   display:inline-block;
-  margin-bottom:24px;
   background:var(--cream);
   color:var(--ink);
   border:2.5px solid var(--ink);
@@ -495,7 +499,20 @@ body{
   50%{transform:translateY(-10px) rotate(4deg);}
 }
 
-@media (prefers-reduced-motion:reduce){
+@media(max-width:600px){
+  .back-button{
+    top:14px;
+    left:14px;
+    padding:9px 14px;
+    font-size:13px;
+  }
+
+  body{
+    padding:75px 16px 30px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
   *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;}
 }
 </style>
@@ -503,10 +520,10 @@ body{
 
 <body>
 
-<div class="stage">
+<!-- BACK TO HOME BUTTON -->
+<a href="index.html" class="back-button">← Back to Home</a>
 
-  <!-- BACK TO HOME BUTTON -->
-  <a href="index.html" class="back-button">← Back to Home</a>
+<div class="stage">
 
   <!-- ASK SCREEN -->
   <div id="askScreen">
