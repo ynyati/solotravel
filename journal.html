@@ -7,9 +7,19 @@
   <title>The Journal | One Idea</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --grape: #8C6BFF;
+      --sky: #33C7E0;
+      --sun: #FFC93C;
+      --coral: #FF6357;
+      --mint: #3ED6A6;
+      --cream: #FFFBF2;
+      --ink: #2C2440;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -17,167 +27,303 @@
     }
 
     body {
+      min-height: 100vh;
       font-family: 'DM Sans', sans-serif;
-      background: #fbf8f2;
-      color: #292821;
+      background:
+        radial-gradient(circle at 8% 12%, var(--sun) 0%, transparent 38%),
+        radial-gradient(circle at 92% 18%, var(--mint) 0%, transparent 40%),
+        radial-gradient(circle at 15% 92%, var(--coral) 0%, transparent 42%),
+        linear-gradient(135deg, var(--grape) 0%, var(--sky) 100%);
+      background-attachment: fixed;
+      color: var(--ink);
     }
+
+    /* NAVIGATION */
 
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 25px 8%;
-      border-bottom: 1px solid #e8e2d8;
+      padding: 22px 8%;
+      gap: 20px;
+      border-bottom: 2px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
     }
 
     .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 27px;
-      font-weight: 700;
-      color: #292821;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 29px;
+      font-weight: 600;
+      color: white;
       text-decoration: none;
+      letter-spacing: -1px;
     }
 
     nav a {
       text-decoration: none;
-      color: #292821;
-      margin-left: 25px;
+      color: white;
+      margin-left: 22px;
       font-size: 14px;
+      font-weight: 700;
+      transition: color 0.2s ease;
     }
+
+    nav a:hover {
+      color: var(--sun);
+    }
+
+    /* HERO */
 
     .hero {
       text-align: center;
-      padding: 90px 20px 65px;
+      padding: 85px 20px 65px;
     }
 
     .eyebrow {
+      display: table;
+      margin: 0 auto 20px;
+      padding: 9px 16px;
+      background: var(--sun);
+      color: var(--ink);
+      border: 2px solid var(--ink);
+      border-radius: 30px;
       text-transform: uppercase;
-      letter-spacing: 3px;
-      font-size: 11px;
-      color: #a16f54;
-      font-weight: 700;
-      margin-bottom: 18px;
+      letter-spacing: 2px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
     }
 
     h1, h2, h3 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 500;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
     }
 
     h1 {
-      font-size: 60px;
+      font-size: clamp(48px, 8vw, 68px);
       margin-bottom: 18px;
+      color: white;
+      letter-spacing: -1px;
+      line-height: 1.1;
     }
 
     .hero p {
-      color: #77736b;
-      line-height: 1.8;
+      color: white;
+      line-height: 1.9;
       max-width: 550px;
       margin: auto;
+      font-size: 15px;
+      font-weight: 500;
     }
 
+    /* JOURNAL CONTENT */
+
     .content {
-      max-width: 1100px;
-      padding: 30px 25px 90px;
+      max-width: 1150px;
+      padding: 35px 25px 90px;
       margin: auto;
     }
 
     .section-title {
-      font-size: 32px;
-      margin-bottom: 25px;
+      font-size: 34px;
+      margin-bottom: 28px;
+      color: white;
     }
 
     .posts {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
+      gap: 28px;
+      align-items: stretch;
     }
 
+    /* ARTICLE CARDS */
+
     .post {
-      background: white;
-      border: 1px solid #eee7dc;
-      border-radius: 6px;
+      background: var(--cream);
+      border: 3px solid var(--ink);
+      border-radius: 20px;
       overflow: hidden;
+      box-shadow: 7px 7px 0 var(--ink);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .post:hover {
+      transform: translateY(-6px);
+      box-shadow: 7px 13px 0 var(--ink);
     }
 
     .post-image {
-      height: 210px;
-      background: #e9ded0;
+      height: 220px;
+      background: linear-gradient(135deg, #FFE28A, #FFB5A9);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #80563f;
-      font-family: 'Playfair Display', serif;
-      font-size: 25px;
+      text-align: center;
+      padding: 20px;
+      color: var(--ink);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 30px;
+      font-weight: 600;
+      border-bottom: 3px solid var(--ink);
+      background-size: cover;
+      background-position: center;
     }
 
     .post:nth-child(2) .post-image {
-      background: #e6e4d9;
+      background-color: #C7F3E5;
     }
 
     .post:nth-child(3) .post-image {
-      background: #eadedb;
+      background-color: #DCD1FF;
     }
 
     .post-content {
       padding: 25px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
     }
 
     .category {
+      display: inline-block;
+      width: fit-content;
+      background: var(--sun);
+      border: 1.5px solid var(--ink);
+      border-radius: 20px;
+      padding: 6px 10px;
+      font-family: 'Fredoka', sans-serif;
       font-size: 10px;
-      letter-spacing: 2px;
-      color: #a16f54;
-      font-weight: 700;
-      margin-bottom: 13px;
+      letter-spacing: 1px;
+      color: var(--ink);
+      font-weight: 600;
+      margin-bottom: 15px;
     }
 
     .post h3 {
-      font-size: 23px;
-      margin-bottom: 12px;
+      font-size: 25px;
+      line-height: 1.2;
+      margin-bottom: 13px;
+      color: var(--ink);
     }
 
     .post p {
       font-size: 13px;
-      color: #77736b;
+      color: #777087;
       line-height: 1.8;
     }
 
+    .post .post-date {
+      margin-top: 12px;
+      font-size: 11px;
+      color: #9992A6;
+      font-weight: 600;
+    }
+
+    .read-link {
+      display: inline-block;
+      width: fit-content;
+      margin-top: auto;
+      padding-top: 20px;
+      color: #7655E8;
+      text-decoration: none;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .read-link:hover {
+      color: var(--coral);
+    }
+
+    /* CREATOR SECTION */
+
     .about {
-      background: #eee7dc;
+      background: var(--cream);
+      border-top: 3px solid var(--ink);
+      border-bottom: 3px solid var(--ink);
       text-align: center;
-      padding: 65px 25px;
+      padding: 75px 25px;
+    }
+
+    .about .eyebrow {
+      background: var(--mint);
+    }
+
+    .about h2 {
+      font-size: 40px;
+      color: var(--ink);
     }
 
     .about p {
       max-width: 550px;
-      margin: 15px auto;
-      line-height: 1.8;
-      color: #77736b;
+      margin: 18px auto 0;
+      line-height: 1.9;
+      color: #777087;
+      font-size: 15px;
     }
+
+    /* FOOTER */
 
     footer {
       padding: 30px;
       text-align: center;
-      color: #77736b;
-      font-size: 12px;
+      color: white;
+      font-size: 13px;
+      font-weight: 600;
+      border-top: 2px solid rgba(255,255,255,0.25);
     }
 
-    @media (max-width: 750px) {
+    /* RESPONSIVE */
+
+    @media (max-width: 850px) {
+      .posts {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
       nav {
         flex-direction: column;
-        gap: 18px;
+        gap: 16px;
+        padding: 18px 5%;
       }
 
       nav a {
         margin: 0 8px;
+        font-size: 12px;
+      }
+
+      .logo {
+        font-size: 26px;
+      }
+
+      .hero {
+        padding: 60px 20px 45px;
       }
 
       h1 {
-        font-size: 43px;
+        font-size: 47px;
       }
 
       .posts {
         grid-template-columns: 1fr;
+      }
+
+      .content {
+        padding: 25px 22px 65px;
+      }
+
+      .section-title {
+        font-size: 29px;
+      }
+
+      .about h2 {
+        font-size: 34px;
       }
     }
   </style>
@@ -205,9 +351,9 @@
   </section>
 
   <main class="content">
-    <h2 class="section-title">Explore the journal</h2>
+    <h2 class="section-title">Explore the journal ✨</h2>
 
-   <div class="posts" id="posts"></div>
+    <div class="posts" id="posts"></div>
   </main>
 
   <section class="about">
@@ -222,69 +368,62 @@
 
   <footer>© 2026 One Idea. Made for the curious.</footer>
 
+  <script>
+    const articles = [
+      {
+        title: "Learning to Travel on Your Own",
+        category: "SOLO STORIES",
+        description: "Stories and lessons about discovering new places and enjoying your own company.",
+        date: "November 14, 2026",
+        image: "",
+        link: "articles/learning-to-travel-alone.html"
+      }
+    ];
 
-<script>
-const articles = [
-  {
-    title: "Learning to Travel on Your Own",
-    category: "SOLO STORIES",
-    description: "Stories and lessons about discovering new places and enjoying your own company.",
-    date: "November 14, 2026",
-    image: "",
-    link: "/articles/learning-to-travel-alone.html"
-  }
-];
+    const postsContainer = document.getElementById("posts");
 
-const postsContainer = document.getElementById("posts");
+    articles.forEach(article => {
+      const card = document.createElement("article");
+      card.className = "post";
 
-articles.forEach(article => {
-  const card = document.createElement("article");
-  card.className = "post";
+      const image = document.createElement("div");
+      image.className = "post-image";
 
-  const image = document.createElement("div");
-  image.className = "post-image";
+      if (article.image) {
+        image.style.backgroundImage = `url("${article.image}")`;
+        image.style.backgroundSize = "cover";
+        image.style.backgroundPosition = "center";
+      } else {
+        image.textContent = "One Idea";
+      }
 
-  if (article.image) {
-    image.style.backgroundImage = `url("${article.image}")`;
-    image.style.backgroundSize = "cover";
-    image.style.backgroundPosition = "center";
-  } else {
-    image.textContent = "One Idea";
-  }
+      const content = document.createElement("div");
+      content.className = "post-content";
 
-  const content = document.createElement("div");
-  content.className = "post-content";
+      const category = document.createElement("div");
+      category.className = "category";
+      category.textContent = article.category;
 
-  const category = document.createElement("div");
-  category.className = "category";
-  category.textContent = article.category;
+      const title = document.createElement("h3");
+      title.textContent = article.title;
 
-  const title = document.createElement("h3");
-  title.textContent = article.title;
+      const description = document.createElement("p");
+      description.textContent = article.description;
 
-  const description = document.createElement("p");
-  description.textContent = article.description;
+      const date = document.createElement("p");
+      date.className = "post-date";
+      date.textContent = article.date;
 
-  const date = document.createElement("p");
-  date.textContent = article.date;
-  date.style.marginTop = "12px";
+      const link = document.createElement("a");
+      link.className = "read-link";
+      link.href = article.link;
+      link.textContent = "Read the story →";
 
-  const link = document.createElement("a");
-  link.href = article.link;
-  link.textContent = "Read the story →";
-  link.style.display = "inline-block";
-  link.style.marginTop = "18px";
-  link.style.color = "#a16f54";
-  link.style.textDecoration = "none";
-  link.style.fontSize = "13px";
-
-  content.append(category, title, description, date, link);
-  card.append(image, content);
-  postsContainer.appendChild(card);
-});
-</script>
-</body>
-</html>
+      content.append(category, title, description, date, link);
+      card.append(image, content);
+      postsContainer.appendChild(card);
+    });
+  </script>
 
 </body>
 </html>

@@ -7,9 +7,19 @@
   <title>Plan a Trip | One Idea</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --grape: #8C6BFF;
+      --sky: #33C7E0;
+      --sun: #FFC93C;
+      --coral: #FF6357;
+      --mint: #3ED6A6;
+      --cream: #FFFBF2;
+      --ink: #2C2440;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -17,71 +27,105 @@
     }
 
     body {
+      min-height: 100vh;
       font-family: 'DM Sans', sans-serif;
-      background: #fbf8f2;
-      color: #292821;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 12%, var(--sun) 0%, transparent 38%),
+        radial-gradient(circle at 92% 18%, var(--mint) 0%, transparent 40%),
+        radial-gradient(circle at 15% 92%, var(--coral) 0%, transparent 42%),
+        linear-gradient(135deg, var(--grape) 0%, var(--sky) 100%);
+      background-attachment: fixed;
     }
+
+    /* NAVIGATION */
 
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 25px 8%;
-      border-bottom: 1px solid #e8e2d8;
+      padding: 22px 8%;
+      gap: 20px;
+      border-bottom: 2px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
     }
 
     .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 27px;
-      font-weight: 700;
-      color: #292821;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 29px;
+      font-weight: 600;
+      color: white;
       text-decoration: none;
+      letter-spacing: -1px;
     }
 
     nav a {
       text-decoration: none;
-      color: #292821;
-      margin-left: 25px;
+      color: white;
+      margin-left: 22px;
       font-size: 14px;
+      font-weight: 700;
+      transition: color 0.2s ease;
     }
 
+    nav a:hover {
+      color: var(--sun);
+    }
+
+    /* MAIN CONTAINER */
+
     .container {
-      max-width: 760px;
-      margin: 70px auto;
+      max-width: 850px;
+      margin: 65px auto;
       padding: 0 25px;
     }
 
     .eyebrow {
+      display: table;
+      margin: 0 auto 20px;
+      padding: 9px 16px;
+      background: var(--sun);
+      color: var(--ink);
+      border: 2px solid var(--ink);
+      border-radius: 30px;
       text-transform: uppercase;
-      letter-spacing: 3px;
-      font-size: 11px;
-      color: #a16f54;
-      font-weight: 700;
-      margin-bottom: 18px;
+      letter-spacing: 2px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
       text-align: center;
     }
 
     h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 52px;
-      font-weight: 500;
+      font-family: 'Fredoka', sans-serif;
+      font-size: clamp(42px, 7vw, 62px);
+      font-weight: 600;
       text-align: center;
-      margin-bottom: 15px;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+      color: white;
     }
 
     .intro {
       text-align: center;
-      color: #77736b;
+      color: white;
       line-height: 1.8;
       max-width: 540px;
-      margin: 0 auto 40px;
+      margin: 0 auto 38px;
+      font-size: 15px;
+      font-weight: 500;
     }
 
+    /* FORM CARD */
+
     .form-card {
-      background: white;
-      padding: 38px;
-      border: 1px solid #eee7dc;
-      border-radius: 8px;
+      background: var(--cream);
+      padding: 42px;
+      border: 3px solid var(--ink);
+      border-radius: 23px;
+      box-shadow: 9px 9px 0 var(--ink);
     }
 
     .field {
@@ -90,25 +134,38 @@
 
     label {
       display: block;
+      font-family: 'Fredoka', sans-serif;
       font-weight: 600;
-      font-size: 13px;
-      margin-bottom: 9px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: var(--ink);
     }
 
     input, select, textarea {
       width: 100%;
-      padding: 14px;
-      border: 1px solid #ded8ce;
-      border-radius: 4px;
-      background: #fffefa;
-      font-family: inherit;
+      padding: 15px;
+      border: 2px solid #D9D0E8;
+      border-radius: 11px;
+      background: white;
+      font-family: 'DM Sans', sans-serif;
       font-size: 14px;
-      color: #292821;
+      color: var(--ink);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     input:focus, select:focus, textarea:focus {
-      outline: 1px solid #a16f54;
-      border-color: #a16f54;
+      outline: none;
+      border-color: var(--grape);
+      box-shadow: 0 0 0 3px rgba(140,107,255,0.15);
+    }
+
+    textarea {
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #9992A6;
     }
 
     .two-columns {
@@ -117,58 +174,123 @@
       gap: 18px;
     }
 
+    /* GENERATE BUTTON */
+
     button {
       width: 100%;
-      padding: 16px;
-      background: #a16f54;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: 700;
+      padding: 17px;
+      background: var(--coral);
+      color: var(--ink);
+      border: 2px solid var(--ink);
+      border-radius: 13px;
+      box-shadow: 5px 5px 0 var(--ink);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
       cursor: pointer;
+      transition: all 0.2s ease;
     }
 
-    button:hover {
-      background: #80563f;
+    button:hover:not(:disabled) {
+      background: var(--sun);
+      transform: translate(3px, 3px);
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+
+    button:disabled {
+      opacity: 0.7;
+      cursor: wait;
+      transform: none;
+      box-shadow: 5px 5px 0 var(--ink);
     }
 
     .note {
       font-size: 12px;
       color: #888177;
       text-align: center;
-      margin-top: 15px;
+      margin-top: 17px;
+      line-height: 1.6;
     }
+
+    /* GENERATED ITINERARY */
+
+    #resultSection {
+      display: none;
+      margin-top: 35px;
+      padding: 30px;
+      background: white;
+      border: 3px solid var(--ink);
+      border-radius: 18px;
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+
+    #resultSection h2 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 18px;
+      color: var(--ink);
+    }
+
+    #result {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.9;
+      color: #514B60;
+    }
+
+    /* FOOTER */
 
     footer {
       padding: 30px;
       text-align: center;
-      color: #77736b;
-      font-size: 12px;
+      color: white;
+      font-size: 13px;
+      font-weight: 600;
+      border-top: 2px solid rgba(255,255,255,0.25);
     }
+
+    /* MOBILE */
 
     @media (max-width: 600px) {
       nav {
         flex-direction: column;
-        gap: 18px;
+        gap: 16px;
+        padding: 18px 5%;
       }
 
       nav a {
         margin: 0 8px;
+        font-size: 12px;
+      }
+
+      .logo {
+        font-size: 26px;
+      }
+
+      .container {
+        margin: 40px auto;
+        padding: 0 18px;
       }
 
       h1 {
-        font-size: 40px;
+        font-size: 43px;
       }
 
       .form-card {
-        padding: 24px;
+        padding: 25px 20px;
+        box-shadow: 6px 6px 0 var(--ink);
       }
 
       .two-columns {
         grid-template-columns: 1fr;
         gap: 0;
+      }
+
+      #resultSection {
+        padding: 22px;
       }
     }
   </style>
@@ -177,13 +299,13 @@
 <body>
 
   <nav>
-  <a class="logo" href="index.html">one idea.</a>
-  <div>
-    <a href="explore.html">Explore</a>
-    <a href="itinerary.html">Plan a Trip</a>
-    <a href="/journal.html">Journal</a>
-  </div>
-</nav>
+    <a class="logo" href="index.html">one idea.</a>
+    <div>
+      <a href="explore.html">Explore</a>
+      <a href="itinerary.html">Plan a Trip</a>
+      <a href="journal.html">Journal</a>
+    </div>
+  </nav>
 
   <main class="container">
 
@@ -263,16 +385,15 @@
         <button type="submit">Create my itinerary →</button>
 
         <p class="note">
-          Your personalized travel planner is coming soon.
+          Your personalized travel plan is just a click away.
         </p>
 
       </form>
-      <div id="resultSection" style="display:none; margin-top:30px; background:#f1ebe2; padding:25px; border-radius:6px;">
-    <h2 style="font-family:'Playfair Display',serif; margin-bottom:15px;">
-        Your adventure awaits.
-    </h2>
-    <pre id="result" style="white-space:pre-wrap; font-family:'DM Sans',sans-serif; line-height:1.8;"></pre>
-</div>
+
+      <div id="resultSection">
+        <h2>Your adventure awaits ✨</h2>
+        <pre id="result"></pre>
+      </div>
 
     </div>
   </main>
@@ -280,50 +401,64 @@
   <footer>© 2026 One Idea. Made for the curious.</footer>
 
   <script>
-    
-document.getElementById("tripForm").addEventListener("submit", async function(event) {
+    document.getElementById("tripForm").addEventListener("submit", async function(event) {
 
-    event.preventDefault();
+      event.preventDefault();
 
-    const button = document.querySelector("button");
-    button.textContent = "Creating your itinerary...";
-    button.disabled = true;
+      const button = document.querySelector("#tripForm button");
+      const resultSection = document.getElementById("resultSection");
+      const resultElement = document.getElementById("result");
 
-    const formData = {
+      button.textContent = "Creating your itinerary...";
+      button.disabled = true;
+
+      resultSection.style.display = "none";
+
+      const formData = {
         destination: document.getElementById("destination").value,
         days: document.getElementById("days").value,
         budget: document.getElementById("budget").value,
         travelStyle: document.getElementById("travelStyle").value,
         interests: document.getElementById("interests").value,
         travelType: document.getElementById("travelType").value
-    };
+      };
 
-    try {
+      try {
 
         const response = await fetch("/api/itinerary", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(formData)
         });
 
-        const result = await response.json();
+        const data = await response.json();
 
-        document.getElementById("result").textContent = result.itinerary;
-        document.getElementById("resultSection").style.display = "block";
+        if (!response.ok) {
+          throw new Error(data.error || "Unable to create itinerary.");
+        }
 
-    } catch (error) {
+        resultElement.textContent = data.itinerary || "No itinerary was returned. Please try again.";
+        resultSection.style.display = "block";
 
-        alert("Something went wrong. Please try again.");
+        resultSection.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
 
-    }
+      } catch (error) {
 
-    button.textContent = "Create my itinerary →";
-    button.disabled = false;
+        alert(error.message || "Something went wrong. Please try again.");
 
-});
+      } finally {
 
+        button.textContent = "Create my itinerary →";
+        button.disabled = false;
+
+      }
+
+    });
   </script>
 
 </body>

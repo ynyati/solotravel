@@ -6,9 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Story | One Idea</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --grape: #8C6BFF;
+      --sky: #33C7E0;
+      --sun: #FFC93C;
+      --coral: #FF6357;
+      --mint: #3ED6A6;
+      --cream: #FFFBF2;
+      --ink: #2C2440;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -16,113 +27,214 @@
     }
 
     body {
-      background: #fbf8f2;
-      color: #292821;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 8% 12%, var(--sun) 0%, transparent 38%),
+        radial-gradient(circle at 92% 18%, var(--mint) 0%, transparent 40%),
+        radial-gradient(circle at 15% 92%, var(--coral) 0%, transparent 42%),
+        linear-gradient(135deg, var(--grape) 0%, var(--sky) 100%);
+      background-attachment: fixed;
+      color: var(--ink);
       font-family: 'DM Sans', sans-serif;
     }
 
+    /* NAVIGATION */
+
     nav {
-      padding: 25px 8%;
+      padding: 22px 8%;
       display: flex;
       justify-content: space-between;
-      border-bottom: 1px solid #e8e2d8;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 2px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
     }
 
     nav a {
-      color: #292821;
+      color: white;
       text-decoration: none;
-      margin-left: 20px;
+      margin-left: 22px;
       font-size: 14px;
+      font-weight: 700;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--sun);
     }
 
     .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 25px;
-      font-weight: bold;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 29px;
+      font-weight: 600;
       margin-left: 0;
+      letter-spacing: -1px;
     }
 
+    /* ARTICLE CONTAINER */
+
     .article {
-      max-width: 760px;
-      margin: 75px auto;
-      padding: 0 25px;
+      max-width: 850px;
+      margin: 65px auto;
+      padding: 50px 55px;
+      width: calc(100% - 40px);
+      background: var(--cream);
+      border: 3px solid var(--ink);
+      border-radius: 25px;
+      box-shadow: 9px 9px 0 var(--ink);
     }
 
     .category {
-      color: #a16f54;
-      font-size: 11px;
-      letter-spacing: 3px;
-      font-weight: bold;
-      margin-bottom: 20px;
+      display: inline-block;
+      background: var(--sun);
+      color: var(--ink);
+      border: 2px solid var(--ink);
+      border-radius: 30px;
+      padding: 8px 15px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+      margin-bottom: 22px;
     }
 
     h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 52px;
-      font-weight: 500;
-      line-height: 1.2;
-      margin-bottom: 20px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: clamp(38px, 6vw, 58px);
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -1.5px;
+      margin-bottom: 18px;
+      color: var(--ink);
     }
 
     .date {
-      color: #888176;
+      color: #777087;
       font-size: 13px;
-      margin-bottom: 35px;
+      font-weight: 600;
+      margin-bottom: 30px;
     }
+
+    /* COVER IMAGE PLACEHOLDER */
 
     .cover {
       width: 100%;
-      min-height: 300px;
-      background: #e9ded0;
+      min-height: 340px;
+      background: linear-gradient(135deg, #FFE28A, #FFB5A9);
+      border: 3px solid var(--ink);
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #80563f;
-      font-family: 'Playfair Display', serif;
+      text-align: center;
+      padding: 25px;
+      color: var(--ink);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 21px;
+      font-weight: 600;
       margin-bottom: 40px;
+      overflow: hidden;
     }
+
+    /* ARTICLE WRITING */
 
     .writing {
       font-size: 16px;
-      line-height: 2;
-      color: #514e46;
+      line-height: 1.9;
+      color: #514B60;
     }
 
     .writing p {
-      margin-bottom: 25px;
+      margin-bottom: 24px;
     }
 
     .writing h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 29px;
-      font-weight: 500;
-      color: #292821;
-      margin: 40px 0 15px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 30px;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 42px 0 15px;
+      line-height: 1.2;
     }
+
+    .writing a {
+      color: #7655E8;
+      font-weight: 700;
+    }
+
+    /* BACK BUTTON */
 
     .back {
       display: inline-block;
-      margin-top: 40px;
-      color: #a16f54;
+      margin-top: 25px;
+      padding: 13px 20px;
+      background: var(--mint);
+      color: var(--ink);
+      border: 2px solid var(--ink);
+      border-radius: 12px;
+      box-shadow: 4px 4px 0 var(--ink);
       text-decoration: none;
-      font-size: 14px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s ease;
     }
+
+    .back:hover {
+      transform: translate(3px, 3px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    /* FOOTER */
 
     footer {
       text-align: center;
-      padding: 30px;
-      color: #77736b;
-      font-size: 12px;
-      border-top: 1px solid #e8e2d8;
+      padding: 30px 20px;
+      color: white;
+      font-size: 13px;
+      font-weight: 600;
+      border-top: 2px solid rgba(255,255,255,0.25);
     }
 
+    /* MOBILE */
+
     @media (max-width: 600px) {
+      nav {
+        padding: 18px 5%;
+        flex-wrap: wrap;
+      }
+
+      nav a {
+        margin-left: 10px;
+        font-size: 12px;
+      }
+
+      .logo {
+        font-size: 25px;
+      }
+
+      .article {
+        margin: 35px auto;
+        padding: 30px 23px;
+        box-shadow: 6px 6px 0 var(--ink);
+      }
+
       h1 {
         font-size: 39px;
       }
 
-      .article {
-        margin-top: 45px;
+      .cover {
+        min-height: 230px;
+        font-size: 18px;
+      }
+
+      .writing {
+        font-size: 15px;
+      }
+
+      .writing h2 {
+        font-size: 26px;
       }
     }
   </style>
